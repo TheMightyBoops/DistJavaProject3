@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 @WebServlet(name = "SimpleServlet")
@@ -34,8 +35,12 @@ public class SimpleServlet extends HttpServlet {
 
         Enumeration paramNames = request.getParameterNames();
 
+
+        //String comicTypes = request.getParameter("comic_type");
+
         while(paramNames.hasMoreElements()) {
             String paramName = (String)paramNames.nextElement();
+
             out.print("<tr><td>" + paramName + "</td>\n<td>");
             String[] paramValues = request.getParameterValues(paramName);
             // Read single valued data
@@ -57,14 +62,16 @@ public class SimpleServlet extends HttpServlet {
         }
         out.println("</tr>\n</table>\n");
         String fullName = request.getParameter("full_name");
-        String[] comicType = request.getParameterValues("comic_type");
+
+        String[] type = request.getParameterValues("comic_type");
         String company = request.getParameter("company");
+
 
         out.println("<hr><h3>Using Parameter Names</h3><ul>\n" +
                 "  <li><b>full_name</b>: "
                 + fullName + "</li>\n" + "  <li><b>comic_type</b>: ");
-                for(int i = 0; i < comicType.length; i++){
-                    out.println(comicType[i] + ",");
+                for(String s:type){
+                    out.println(s + ",");
                 }
                 out.println("</li>\n" + "  <li><b>company</b>: "
                 + company + "</li>\n" + "</ul>\n");
